@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farbrad App</title>
+    <style>
+        .farbrad {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+        }
+        .segment {
+            border: 1px solid white; 
+            width: 51%; 
+            height: 51%; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 100% 0 0 100% / 50% 0 0 50%;
+            transform-origin: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="farbrad">
+        <% farben.forEach((farbe, index) => { %>
+            <div class="segment" style="background-color: <%= farbe.hex %>; transform: rotate(<%= index * (360/farben.length) %>deg);"></div>
+        <% }); %>
+    </div>
+    <div class="farbrad">
+        <!-- Sonderfall für das letzte Segment (Rosa) -->
+        <div class="segment" style="background-color: <%= farben[farben.length-1].hex %>;" transform: rotate(<%= (farben.length-1) * (360/farben.length) %>deg);"></div>
+    
+        <% for(let i = 0; i < farben.length - 1; i++) { %>
+            <!-- Alle anderen Segmente -->
+            <div class="segment" style="background-color: <%= farben[i].hex %>; transform: rotate(<%= i * (360/farben.length) %>deg);"></div>
+        <% } %>
+    </div>
+</body>
+</html>
